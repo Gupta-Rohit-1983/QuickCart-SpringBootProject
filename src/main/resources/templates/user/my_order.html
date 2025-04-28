@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+</head>
+
+<body>
+    <section>
+        <div class="container-fluid mt-5 p-5">
+            <p class="fs-3 text-center fw-bold">My Orders</p>
+
+            <th:block th:if="${session.successMsg}">
+                <p class="text-success fw-bold text-center">[[${session.successMsg}]]</p>
+                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+
+            <th:block th:if="${session.errorMsg}">
+                <p class="text-danger fw-bold text-center">[[${session.errorMsg}]]</p>
+                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>Order Id</th>
+                                <th>Date</th>
+                                <th>Product Details</th>
+                                <th>Order Details</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="o:${orders}">
+                                <td>[[${o.orderId}]]</td>
+                                <td>[[${o.orderDate}]]</td>
+                                <td><img th:src="@{'/img/Products/'+${o.product.image}}" alt="" width="50px"
+                                        height="50px"> [[${o.product.title}]]</td>
+                                <td>
+                                    Quantity : [[${o.orderQuantity}]]
+                                    <br>
+                                    Price : [[${o.price}]]
+                                    <br>
+                                    Total Price : [[${o.orderQuantity * o.price}]]
+                                </td>
+                                <td>[[${o.status}]]</td>
+                                <td>
+                                    <th:block th:if="${o.status == 'Cancelled' || o.status == 'Delivered'}">
+                                        <a href="#"
+                                            class="btn btn-danger btn-sm disabled">Cancel
+                                            Order</a>
+                                    </th:block>
+                                    <th:block th:unless="${o.status == 'Cancelled' || o.status == 'Delivered'}">
+                                        <a th:href="@{'/user/update-status?id=' + ${o.id} + '&st=6'}" class="btn btn-danger btn-sm ">Cancel
+                                            Order</a>
+                                    </th:block>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

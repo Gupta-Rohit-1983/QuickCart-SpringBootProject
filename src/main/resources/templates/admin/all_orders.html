@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Orders</title>
+</head>
+
+<body>
+    <section>
+        <div class="container-fluid mt-5 p-5">
+            <p class="fs-3 text-center fw-bold">All Orders</p>
+
+            <th:block th:if="${session.successMsg}">
+                <p class="text-success fw-bold text-center">[[${session.successMsg}]]</p>
+                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+
+            <th:block th:if="${session.errorMsg}">
+                <p class="text-danger fw-bold text-center">[[${session.errorMsg}]]</p>
+                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+
+            <div class="col-md-6 p-3">
+                <form action="/admin/searchOrder" method="get">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" name="orderId" placeholder="Enter Order Id">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-dark">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>Order Id</th>
+                                <th>Delivery Details</th>
+                                <th>Date</th>
+                                <th>Product Details</th>
+                                <th>Order Details</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:if="${srch}">
+                                <tr>
+                                    <td>[[${order.orderId}]]</td>
+                                    <td>
+                                        Name : [[${order.orderAddress.firstName + ' ' + order.orderAddress.lastName}]]
+                                        <br>
+                                        Email : [[${order.orderAddress.email}]]
+                                        <br>
+                                        Mobile No : [[${order.orderAddress.mobileNumber}]]
+                                        <br>
+                                        Area : [[${order.orderAddress.area}]], City : [[${order.orderAddress.city}]]
+                                        <br>
+                                        State : [[${order.orderAddress.state}]]
+                                        <br>
+                                        Pincode : [[${order.orderAddress.pincode}]]
+                                    </td>
+                                    <td>[[${order.orderDate}]]</td>
+                                    <td><img th:src="@{'/img/Products/'+${order.product.image}}" alt="" width="50px"
+                                            height="50px"> [[${order.product.title}]]</td>
+                                    <td>
+                                        Quantity : [[${order.orderQuantity}]]
+                                        <br>
+                                        Price : [[${order.price}]]
+                                        <br>
+                                        Total Price : [[${order.orderQuantity * order.price}]]
+                                    </td>
+                                    <td>[[${order.status}]]</td>
+                                    <td>
+                                        <form action="/admin/update-status" method="post">
+                                            <div class="row">
+                                                <input type="hidden" name="id" th:value="${order.id}" id="">
+                                                <div class="col">
+                                                    <select name="st" id="" class="form-control">
+                                                        <option value="">-Select-</option>
+                                                        <option value="1">In Progess</option>
+                                                        <option value="2">Order Recieved</option>
+                                                        <option value="3">Order Dispatched</option>
+                                                        <option value="4">Out For Delivery</option>
+                                                        <option value="5">Delivered</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <th:block
+                                                        th:if="${order.status == 'Cancelled' || order.status == 'Delivered'}">
+                                                        <button class="btn btn-dark btn-sm disabled">Update</button>
+                                                    </th:block>
+                                                    <th:block
+                                                        th:unless="${order.status == 'Cancelled' || order.status == 'Delivered'}">
+                                                        <button class="btn btn-dark btn-sm">Update</button>
+                                                    </th:block>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            <th:block th:unless="${srch}">
+                                <tr th:each="o:${orders}">
+                                    <td>[[${o.orderId}]]</td>
+                                    <td>
+                                        Name : [[${o.orderAddress.firstName + ' ' + o.orderAddress.lastName}]]
+                                        <br>
+                                        Email : [[${o.orderAddress.email}]]
+                                        <br>
+                                        Mobile No : [[${o.orderAddress.mobileNumber}]]
+                                        <br>
+                                        Area : [[${o.orderAddress.area}]], City : [[${o.orderAddress.city}]]
+                                        <br>
+                                        State : [[${o.orderAddress.state}]]
+                                        <br>
+                                        Pincode : [[${o.orderAddress.pincode}]]
+                                    </td>
+                                    <td>[[${o.orderDate}]]</td>
+                                    <td><img th:src="@{'/img/Products/'+${o.product.image}}" alt="" width="50px"
+                                            height="50px"> [[${o.product.title}]]</td>
+                                    <td>
+                                        Quantity : [[${o.orderQuantity}]]
+                                        <br>
+                                        Price : [[${o.price}]]
+                                        <br>
+                                        Total Price : [[${o.orderQuantity * o.price}]]
+                                    </td>
+                                    <td>[[${o.status}]]</td>
+                                    <td>
+                                        <form action="/admin/update-status" method="post">
+                                            <div class="row">
+                                                <input type="hidden" name="id" th:value="${o.id}" id="">
+                                                <div class="col">
+                                                    <select name="st" id="" class="form-control">
+                                                        <option value="">-Select-</option>
+                                                        <option value="1">In Progess</option>
+                                                        <option value="2">Order Recieved</option>
+                                                        <option value="3">Order Dispatched</option>
+                                                        <option value="4">Out For Delivery</option>
+                                                        <option value="5">Delivered</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <th:block
+                                                        th:if="${o.status == 'Cancelled' || o.status == 'Delivered'}">
+                                                        <button class="btn btn-dark btn-sm disabled">Update</button>
+                                                    </th:block>
+                                                    <th:block
+                                                        th:unless="${o.status == 'Cancelled' || o.status == 'Delivered'}">
+                                                        <button class="btn btn-dark btn-sm">Update</button>
+                                                    </th:block>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </th:block>
+
+                        </tbody>
+                    </table>
+                    <!-- start of pagination -->
+                    <th:block th:if="${!srch}">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <b>Totol Orders : [[${totalElement}]] </b>
+                            </div>
+                            <div class="col-md-6">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" th:classappend="${isFirst?'disabled':''}"
+                                                th:href="@{'/admin/all-orders?pageNo='+${pageNo-1}}"
+                                                aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li th:each="i:${#numbers.sequence(1,totalPage)}" class="page-item"
+                                            th:classappend="${pageNo+1==i?'active':''}"><a class="page-link"
+                                                th:href="@{'/admin/all-orders?pageNo='+${i-1}}">[[${i}]]</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" th:classappend="${isLast?'disabled':''}"
+                                                th:href="@{'/admin/all-orders?pageNo='+${pageNo+1}}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

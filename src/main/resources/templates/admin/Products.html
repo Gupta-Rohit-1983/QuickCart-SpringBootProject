@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>products</title>
+</head>
+
+<body>
+    <section>
+        <div class="container mt-5 p-5">
+            <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                <div class="card-header text-center">
+                    <p class="fs-4 ">View Product</p>
+                    <th:block th:if="${session.successMsg}">
+                        <p class="text-success fw-bold">[[${session.successMsg}]]</p>
+                        <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <th:block th:if="${session.errorMsg}">
+                        <p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+                        <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                    </th:block>
+                    <div class="col-md-4">
+                        <form action="/admin/viewProduct" method="get">
+                            <div class="d-flex">
+                                <input type="text" class="form-control me-3" name="ch"
+                                    placeholder="Enter Product Details">
+                                <button class="btn btn-dark">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sr. No</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Discount Price</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="p,c:${products}">
+                                <th scope="row">[[${c.count}]]</th>
+                                <td>[[${p.title}]]</td>
+                                <td><img th:src="@{'/img/Products/'+${p.image}}" alt="" width="50px" height="50px"></td>
+                                <td>[[${p.price}]]</td>
+                                <td>[[${p.discount}]]</td>
+                                <td>[[${p.discountPrice}]]</td>
+                                <td>[[${p.isActive}]]</td>
+                                <td>[[${p.category}]]</td>
+                                <td>[[${p.stock}]]</td>
+                                <td>
+                                    <a th:href="@{'/admin/editProduct/'+${p.id}}" class="btn btn-dark btn-sm"><i
+                                            class="fa-solid fa-pen-to-square fa-1x">
+                                        </i></a>
+                                    &nbsp;
+                                    <a th:href="@{'/admin/deleteProduct/'+${p.id}}" class="btn btn-danger btn-sm"><i
+                                            class="fa-solid fa-trash fa-1x">
+                                        </i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- start of pagination -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>Totol Products : [[${totalElement}]] </b>
+                        </div>
+                        <div class="col-md-6">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" th:classappend="${isFirst?'disabled':''}"
+                                            th:href="@{'/admin/viewProduct?pageNo='+${pageNo-1}}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="i:${#numbers.sequence(1,totalPage)}" class="page-item"
+                                        th:classappend="${pageNo+1==i?'active':''}"><a class="page-link"
+                                            th:href="@{'/admin/viewProduct?pageNo='+${i-1}}">[[${i}]]</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" th:classappend="${isLast?'disabled':''}"
+                                            th:href="@{'/admin/viewProduct?pageNo='+${pageNo+1}}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

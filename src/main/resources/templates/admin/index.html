@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <section>
+        <div class="container mt-5 p-3">
+            <p class="text-center fs-2 mt-3 ">Admin Dashboard</p>
+            <div class="row p-5">
+                <div class="col-md-4 mt-3">
+                    <a href="/admin/addProduct" class="text-decoration-none">
+                        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <div class="card-body text-center text-dark">
+                                <i class="fa-solid fa-square-plus fa-3x"></i>
+                                <h4 class="mt-2">Add Products</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <a href="/admin/addCategory" class="text-decoration-none">
+                        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <div class="card-body text-center text-dark">
+                                <i class="fa-solid fa-list fa-3x"></i>
+                                <h4 class="mt-2">Add Category</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <a href="/admin/viewProduct" class="text-decoration-none">
+                        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <div class="card-body text-center text-danger">
+                                <i class="fa-solid fa-book-open fa-3x"></i>
+                                <h4 class="mt-2">View Products</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <a href="/admin/all-orders" class="text-decoration-none">
+                        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <div class="card-body text-center text-warning">
+                                <i class="fa-solid fa-box fa-3x"></i>
+                                <h4 class="mt-2">Orders</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <a href="/admin/users?type=1" class="text-decoration-none">
+                        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <div class="card-body text-center text-primary">
+                                <i class="fa-solid fa-circle-user fa-3x"></i>
+                                <h4 class="mt-2">Users</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <a href="/admin/users?type=2" class="text-decoration-none">
+                        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <div class="card-body text-center text-primary">
+                                <i class="fa-solid fa-circle-user fa-3x"></i>
+                                <h4 class="mt-2">Admin</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- <div class="col-md-4 mt-3">
+                    <a href="/admin/add-admin" class="text-decoration-none">
+                        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <div class="card-body text-center text-primary">
+                                <i class="fa-solid fa-user-plus fa-3x"></i>
+                                <h4 class="mt-2">Add Admin</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div> -->
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

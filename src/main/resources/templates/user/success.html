@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="container mt-5 p-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                        <div class="card-body text-center">
+                            <i class="fa-solid fa-circle-check fa-5x text-success"></i>
+                            <h3>Order Place Successfully</h3>
+                            <br>
+                            <p class="fs-3">Prduct will delivered in 7 days.</p>
+                            <br>
+                            <div class="text-center">
+                                <a href="/" class="btn btn-dark">Home</a>
+                                <a href="/user/user-order" class="btn btn-dark">Your Order</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

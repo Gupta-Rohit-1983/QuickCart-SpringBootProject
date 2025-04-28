@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+
+<body>
+    <section>
+        <div class="container mt-5 p-5 bg-light">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <p class="fs-3 text-center">My Profile</p>
+
+                    <th:block th:if="${session.successMsg}">
+                        <p class="text-success text-center fw-bold">[[${session.successMsg}]]</p>
+                        <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <th:block th:if="${session.errorMsg}">
+                        <p class="text-danger text-center fw-bold">[[${session.errorMsg}]]</p>
+                        <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <hr>
+                    <table class="table text-center table-borderless">
+                        <tbody>
+                            <form action="/admin/updateProfile" method="post">
+                                <tr>
+                                    <th scope="row">Name</th>
+                                    <td>:</td>
+                                    <td><input type="text" class="form-control" name="name" th:value="${user.name}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Mobeil Number</th>
+                                    <td>:</td>
+                                    <td><input type="text" class="form-control" name="mobileNumber"
+                                            th:value="${user.mobileNumber}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email</th>
+                                    <td>:</td>
+                                    <td><input type="text" class="form-control" name="email" readonly
+                                            th:value="${user.email}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Area</th>
+                                    <td>:</td>
+                                    <td><input type="text" class="form-control" name="area" th:value="${user.area}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">City</th>
+                                    <td>:</td>
+                                    <td><input type="text" class="form-control" name="city" th:value="${user.city}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">State</th>
+                                    <td>:</td>
+                                    <td><input type="text" class="form-control" name="state" th:value="${user.state}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Pincode</th>
+                                    <td>:</td>
+                                    <td><input type="text" class="form-control" name="pincode"
+                                            th:value="${user.pincode}">
+                                        <input type="text" th:value="${user.id}" name="id" hidden>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm bg-dark text-light">Update</button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-6 offset-md-3">
+                <div class="row">
+                    <p class="text-center">
+                        Change Password
+                    </p>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <form action="/admin/changePassword" method="post">
+                                <tr>
+                                    <th scope="row">
+                                        Current Password
+                                    </th>
+                                    <td></td>
+                                    <td><input type="text" class="form-control" name="currentPassword"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        New Password
+                                    </th>
+                                    <td></td>
+                                    <td><input type="text" class="form-control" name="newPassword"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        Confrim New Password
+                                    </th>
+                                    <td></td>
+                                    <td><input type="text" class="form-control" name="confirmPassword"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm bg-dark text-light">Change</button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

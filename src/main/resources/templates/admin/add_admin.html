@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Admin</title>
+</head>
+
+<body>
+    <section>
+        <div class="container mt-5 pd-5">
+            <div class="row text-center">
+                <div class="col-md-8 offset-md-2 p-5">
+                    <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                        <div class="card-header text-center">
+                            <p class="fs-4 ">Add Admin</p>
+
+                            <th:block th:if="${session.successMsg}">
+                                <p class="text-success fw-bold">[[${session.successMsg}]]</p>
+                                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                            </th:block>
+
+                            <th:block th:if="${session.errorMsg}">
+                                <p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+                                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                            </th:block>
+
+                        </div>
+                        <div class="card-body">
+                            <form action="/admin/saveAdmin" method="post">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" name="name" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="" class="form-label">Mobile Number</label>
+                                        <input type="number" class="form-control" name="mobileNumber" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col">
+                                        <label for="" class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col">
+                                        <label for="" class="form-label">Area</label>
+                                        <input type="text" class="form-control" name="area" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="" class="form-label">City</label>
+                                        <input type="text" class="form-control" name="city" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col">
+                                        <label for="" class="form-label">State</label>
+                                        <input type="text" class="form-control" name="state" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="" class="form-label">Pincode</label>
+                                        <input type="number" class="form-control" name="pincode" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col">
+                                        <label for="" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password" required>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" name="cpassword" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn bg-dark text-white col-md-12 mt-3">ADD</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+</body>
+
+</html>
